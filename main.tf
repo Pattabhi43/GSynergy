@@ -22,7 +22,7 @@ resource "aws_security_group" "DBsg" {
   }
 
   tags = {
-    "env" = local.tags
+    "env" = "Gsynergy"
   }
 
 }
@@ -79,10 +79,10 @@ resource "aws_instance" "Airflow" {
 }
 
 resource "aws_redshift_cluster" "RSCluster" {
-  cluster_identifier = "GSynergy"
+  cluster_identifier = "gsynergy"
   database_name = "formation"
   master_username = "Admin"
-  master_password = "Admin@123"
+  master_password = "Admin123"
   node_type = "dc2.large"
   cluster_type = "single-node"
   tags = {
