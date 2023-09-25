@@ -40,7 +40,7 @@ resource "aws_instance" "DBserver" {
   iam_instance_profile = data.aws_iam_instance_profile.Gsynergy.name
   tags = {
     "Name" = "Database-Server"
-    "env" = local.tags
+    "env" = "Gsynergy"
   }
 }
 
@@ -61,7 +61,7 @@ resource "aws_security_group" "Airflowsg" {
   }
 
   tags = {
-    "env" = local.tags
+    "env" = "Gsynergy"
   }
 }
 
@@ -74,7 +74,7 @@ resource "aws_instance" "Airflow" {
   iam_instance_profile = data.aws_iam_instance_profile.Gsynergy.name
   tags = {
     "Name" = "AirFlow-Server"
-    "env" = local.tags
+    "env" = "Gsynergy"
   }
 }
 
@@ -86,7 +86,7 @@ resource "aws_redshift_cluster" "RSCluster" {
   node_type = "dc2.large"
   cluster_type = "single-node"
   tags = {
-    "env" = local.tags
+    "env" = "Gsynergy"
   }
 }
 
@@ -102,6 +102,6 @@ resource "aws_instance" "runner" {
   user_data = data.template_file.runner.rendered
   tags = {
     "Name" = "GH-runner"
-    "env" = local.tags
+    "env" = "Gsynergy"
   }
 }
