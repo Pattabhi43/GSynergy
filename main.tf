@@ -81,8 +81,8 @@ resource "aws_instance" "Airflow" {
 resource "aws_redshift_cluster" "RSCluster" {
   cluster_identifier = "gsynergy"
   database_name = "formation"
-  master_username = "Admin"
-  master_password = "Admin123"
+  master_username = "admin"
+  master_password = "admin123"
   node_type = "dc2.large"
   cluster_type = "single-node"
   tags = {
