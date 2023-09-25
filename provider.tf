@@ -9,8 +9,7 @@ terraform {
 
 provider "aws" {
   # Configuration options
-  assume_role {
-    role_arn = "arn:aws:iam::525567955121:role/Account-user"
-  }
+  access_key = var.access_key
+  secret_key = var.secret_key
   region = "us-east-1"
 }
