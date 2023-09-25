@@ -27,13 +27,17 @@ resource "aws_security_group" "DBsg" {
 
 }
 
+data "aws_iam_instance_profile" "Gsynergy" {
+  name = "Gsynergy"
+}
+
 resource "aws_instance" "DBserver" {
   ami = var.ami
   instance_type = var.instance_type
   security_groups = [ aws_security_group.DBsg.name ]
   subnet_id = "subnet-0fe3f5b7df5c2d98c"
   user_data = data.template_file.user_data.rendered
-  iam_instance_profile = local.iam_instance_profile
+  iam_instance_profile = data.aws_iam_instance_profile.Gsynergy.name
   tags = {
     "Name" = "Database-Server"
     "env" = local.tags
@@ -67,6 +71,7 @@ resource "aws_instance" "Airflow" {
   subnet_id = "subnet-0fe3f5b7df5c2d98c"
   security_groups = [ aws_security_group.Airflowsg.name ]
   user_data = data.template_file.user_data.rendered
+  iam_instance_profile = data.aws_iam_instance_profile.Gsynergy.name
   tags = {
     "Name" = "AirFlow-Server"
     "env" = local.tags
@@ -93,7 +98,7 @@ resource "aws_instance" "runner" {
   ami = var.ami
   instance_type = var.instance_type
   subnet_id = "subnet-0fe3f5b7df5c2d98c"
-  iam_instance_profile = local.iam_instance_profile
+  iam_instance_profile = data.aws_iam_instance_profile.Gsynergy.name
   user_data = data.template_file.runner.rendered
   tags = {
     "Name" = "GH-runner"
